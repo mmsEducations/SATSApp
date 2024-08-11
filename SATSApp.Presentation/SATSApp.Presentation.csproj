@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.7" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SATSApp.Business\SATSApp.Business.csproj" />
+    <ProjectReference Include="..\SATSApp.Data\SATSApp.Data.csproj" />
   </ItemGroup>
 
 </Project>
