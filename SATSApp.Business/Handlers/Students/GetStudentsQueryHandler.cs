@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using SATSApp.Business.Queries;
+using SATSApp.Business.Queries.Students;
 using SATSApp.Data;
 using SATSApp.Data.Entities;
 
-namespace SATSApp.Business.Handlers
+namespace SATSApp.Business.Handlers.Students
 {
     public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, List<Student>>
     {

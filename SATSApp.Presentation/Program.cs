@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SATSApp.Business.Handlers;
+using SATSApp.Business.Handlers.Students;
 using SATSApp.Data;
 using System.Reflection;
 
@@ -19,6 +19,7 @@ builder.Services.AddDbContext<SATSAppDbContext>(options =>
     options.UseNpgsql(@"Host=localhost;Database=postgres;Username=postgres;Password=mms;Search Path=sats")
 );
 
+//Json Web Token Ayarlamalarý 
 
 var app = builder.Build();
 
