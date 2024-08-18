@@ -4,6 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Ozz.Core.Authorization;
 using Ozz.Core.Extensions.Swagger;
 using SATSApp.Business.Handlers.Students;
+using SATSApp.Business.Repositories.Abstract;
+using SATSApp.Business.Repositories.Concrate;
 using SATSApp.Data;
 using System.Reflection;
 using System.Text;
@@ -23,6 +25,9 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddDbContext<SATSAppDbContext>(options =>
     options.UseNpgsql(@"Host=localhost;Database=postgres;Username=postgres;Password=mms;Search Path=sats")
 );
+
+builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+
 
 //1:JWT token 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

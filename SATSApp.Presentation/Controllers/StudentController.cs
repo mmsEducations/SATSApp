@@ -82,3 +82,15 @@ namespace SATSApp.Presentation.Controllers
         }
     }
 }
+
+/*
+ Ardalis Specification 
+ İş kruallları ve SORGULAMALARI daha düzenli ve yeniden Kullanılabilir bir şekilde yapmak için kullanılır 
+ Test edilebilir ve sürdürülebilir 
+
+ Specification Patternı sorgulamalrın ve işkurallarının nesne yönelimli bir şekilde ifade edilemsini sağlar
+ 
+ 1)Specification(Spesifikasyon)  : Belirli bir iş kuralı yani sorgu kriterleri tanımlanır 
+ 2)Criteria (kriter)             : ne  tür sonuçlar döndürecek 
+ 3)Expression (ifade)            : sorgu ve iş kurallarını dinamik olarak oluşturmak için kullanılır 
+ */

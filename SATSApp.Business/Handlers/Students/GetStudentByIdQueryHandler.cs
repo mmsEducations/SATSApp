@@ -1,23 +1,28 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SATSApp.Business.Queries.Students;
-using SATSApp.Data;
+using SATSApp.Business.Repositories.Abstract;
+using SATSApp.Business.Specificatiosn.Students;
 using SATSApp.Data.Entities;
 
 namespace SATSApp.Business.Handlers.Students
 {
     public class GetStudentByIdQueryHandler : IRequestHandler<GetStudentByIdQuery, Student>
     {
-        private readonly SATSAppDbContext _context;
+        private readonly IStudentRepository _studentRepository;
 
-        public GetStudentByIdQueryHandler(SATSAppDbContext context)
+        public GetStudentByIdQueryHandler(IStudentRepository studentRepository)
         {
-            _context = context;
+            _studentRepository = studentRepository;
         }
 
         public async Task<Student> Handle(GetStudentByIdQuery request, CancellationToken cancellationToken)
         {
-            var student = await _context.Students.FirstOrDefaultAsync(x => x.StudentId == request.StudentId, cancellationToken);
+            var spec = new GetStudentByIdReadOnlySpec(request.StudentId);
+            var student = await _studentRepository.GetBySpecAsync(spec, cancellationToken);
+            if (student == null)
+            {
+                //throw new NotFoundException
+            }
             return student;
         }
     }
