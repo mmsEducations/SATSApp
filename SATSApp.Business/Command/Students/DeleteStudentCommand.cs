@@ -1,6 +1,4 @@
-﻿using MediatR;
-
-namespace SATSApp.Business.Command.Students
+﻿namespace SATSApp.Business.Command.Students
 {
     public class DeleteStudentCommand : IRequest
     {

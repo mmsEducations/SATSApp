@@ -1,7 +1,4 @@
-﻿using Ardalis.Specification;
-using SATSApp.Data.Entities;
-
-namespace SATSApp.Business.Specificatiosn.Students
+﻿namespace SATSApp.Business.Specificatiosn.Students
 {
     public class GetStudentListReadOnlySpec : Specification<Student>
     {

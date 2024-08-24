@@ -8,12 +8,13 @@ namespace SATSApp.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Student> builder)
         {
-            builder.ToTable("Students", "sats");
+            builder.ToTable("Students", "satsapp");
 
             builder.HasKey(x => x.StudentId);
 
             builder.Property(x => x.StudentId)
-                  .HasColumnName("student_id");
+                  .HasColumnName("student_id")
+                  .ValueGeneratedOnAdd(); // Set auto-increment
 
             builder.Property(x => x.FirstName)
                    .HasColumnName("first_name")
@@ -42,7 +43,9 @@ namespace SATSApp.Data.Configurations
             //Base Entity
             builder.Property(x => x.CreaDate)
                   .HasColumnName("crea_date")
-                   .IsRequired();
+                   .IsRequired()
+                   .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
 
             builder.Property(x => x.IsDeleted)
                 .HasColumnName("is_deleted")

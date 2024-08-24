@@ -1,35 +1,19 @@
-﻿using MediatR;
-using SATSApp.Business.Command.Students;
-using SATSApp.Data;
-using SATSApp.Data.Entities;
-
-namespace SATSApp.Business.Handlers.Students
+﻿namespace SATSApp.Business.Handlers.Students
 {
     public class CreateStudentCommandHandler : IRequestHandler<CreateStudentCommand, int>
     {
-        private readonly SATSAppDbContext _context;
+        private readonly IStudentRepository _studentRepository;
 
-        public CreateStudentCommandHandler(SATSAppDbContext context)
+        public CreateStudentCommandHandler(IStudentRepository studentRepository)
         {
-            _context = context;
+            _studentRepository = studentRepository;
         }
 
         public async Task<int> Handle(CreateStudentCommand request, CancellationToken cancellationToken)
         {
-            int maxStudentId = _context.Students.Max(x => x.StudentId) + 1;
-            var student = new Student
-            {
-                StudentId = maxStudentId,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                BirthDate = request.BirthDate,
-                Email = request.Email,
-                City = request.City,
-            };
 
-            await _context.Students.AddAsync(student, cancellationToken);
-            await _context.SaveChangesAsync();
-            return maxStudentId;
+            var _student = await _studentRepository.AddAsync(Student.Create(request.FirstName, request.LastName, request.BirthDate, request.Email, request.City), cancellationToken);
+            return _student.StudentId;
         }
     }
 }

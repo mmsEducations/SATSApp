@@ -1,5 +1,4 @@
-﻿using MediatR;
-
+﻿
 namespace SATSApp.Business.Command.Students
 {
     public class CreateStudentCommand : IRequest<int>
@@ -11,4 +10,3 @@ namespace SATSApp.Business.Command.Students
         public string City { get; set; }
     }
 }
-

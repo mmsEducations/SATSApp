@@ -23,10 +23,11 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetSt
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddDbContext<SATSAppDbContext>(options =>
-    options.UseNpgsql(@"Host=localhost;Database=postgres;Username=postgres;Password=mms;Search Path=sats")
+    options.UseNpgsql(@"Host=localhost;Database=postgres;Username=postgres;Password=mms;Search Path=satsapp")
 );
 
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
+builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 
 
 //1:JWT token 

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SATSApp.Business.Command.Students;
 using SATSApp.Business.Queries.Students;
@@ -10,7 +9,7 @@ namespace SATSApp.Presentation.Controllers
 {
     [Route($"{ApiConstant.RouteStudent}")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class StudentController : SATSBaseController
     {
         public StudentController(ISender mediator) : base(mediator)

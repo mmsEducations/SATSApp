@@ -1,7 +1,4 @@
-﻿using MediatR;
-using SATSApp.Data.Entities;
-
-namespace SATSApp.Business.Queries.Students
+﻿namespace SATSApp.Business.Queries.Students
 {
     public class GetStudentByIdQuery : IRequest<Student>
     {
