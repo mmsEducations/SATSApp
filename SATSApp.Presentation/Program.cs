@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -6,6 +7,7 @@ using Ozz.Core.Extensions.Swagger;
 using SATSApp.Business.Handlers.Students;
 using SATSApp.Business.Repositories.Abstract;
 using SATSApp.Business.Repositories.Concrate;
+using SATSApp.Business.Validations;
 using SATSApp.Data;
 using System.Reflection;
 using System.Text;
@@ -28,6 +30,10 @@ builder.Services.AddDbContext<SATSAppDbContext>(options =>
 
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
+
+
+builder.Services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateStudentCommandValidator>());
 
 
 //1:JWT token 
@@ -80,5 +86,7 @@ app.MapControllers();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.Run();

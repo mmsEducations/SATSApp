@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Ozz.Core.ApiReponses;
 using SATSApp.Business.Command.Students;
 using SATSApp.Business.Queries.Students;
 using SATSApp.Data.Entities;
@@ -18,11 +19,11 @@ namespace SATSApp.Presentation.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult<List<Student>>> GetStudents()
+        [ProducesResponseType(typeof(Response<List<Student>>), 200)]
+        [ProducesResponseType(typeof(Response<List<Student>>), 400)]
+        [ProducesResponseType(typeof(Response<List<Student>>), 401)]
+        [ProducesResponseType(typeof(Response<List<Student>>), 500)]
+        public async Task<IActionResult> GetStudents()
         {
             var students = await _mediator.Send(new GetStudentsQuery());
             return Ok(students);
@@ -30,11 +31,12 @@ namespace SATSApp.Presentation.Controllers
 
 
         [HttpGet("{id}")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        [ProducesResponseType(typeof(Response<Student>), 200)]
+        [ProducesResponseType(typeof(Response<Student>), 400)]
+        [ProducesResponseType(typeof(Response<Student>), 401)]
+        [ProducesResponseType(typeof(Response<Student>), 404)]
+        [ProducesResponseType(typeof(Response<Student>), 500)]
+        public async Task<IActionResult> GetStudent([FromRoute] int id)
         {
             var students = await _mediator.Send(new GetStudentByIdQuery() { StudentId = id });
             return Ok(students);
@@ -42,11 +44,12 @@ namespace SATSApp.Presentation.Controllers
 
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult> DeleteStudent(int id)
+        [ProducesResponseType(typeof(Response<bool>), 204)]
+        [ProducesResponseType(typeof(Response<bool>), 400)]
+        [ProducesResponseType(typeof(Response<bool>), 401)]
+        [ProducesResponseType(typeof(Response<bool>), 404)]
+        [ProducesResponseType(typeof(Response<bool>), 500)]
+        public async Task<IActionResult> DeleteStudent(int id)
         {
             await _mediator.Send(new DeleteStudentCommand() { StudentId = id });
             return NoContent();
@@ -54,30 +57,27 @@ namespace SATSApp.Presentation.Controllers
 
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult<int>> CreateStudent(CreateStudentCommand command)
+        [ProducesResponseType(typeof(Response<int>), 201)]
+        [ProducesResponseType(typeof(Response<int>), 400)]
+        [ProducesResponseType(typeof(Response<int>), 401)]
+        [ProducesResponseType(typeof(Response<int>), 500)]
+
+        public async Task<IActionResult> CreateStudent(CreateStudentCommand command)
         {
             var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(CreateStudent), id);
         }
 
         [HttpPut]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult<int>> UpdateStudent(UpdateStudentCommand command)
+        [ProducesResponseType(typeof(Response<int>), 200)]
+        [ProducesResponseType(typeof(Response<int>), 400)]
+        [ProducesResponseType(typeof(Response<int>), 401)]
+        [ProducesResponseType(typeof(Response<int>), 404)]
+        [ProducesResponseType(typeof(Response<int>), 500)]
+        public async Task<IActionResult> UpdateStudent(UpdateStudentCommand command)
         {
-            if (command.StudentId <= 0)
-            {
-                return BadRequest();
-            }
-
-            var id = await _mediator.Send(command);
-            return Ok(id);
+            await _mediator.Send(command);
+            return Ok();
         }
     }
 }

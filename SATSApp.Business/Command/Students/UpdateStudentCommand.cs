@@ -1,6 +1,8 @@
-﻿namespace SATSApp.Business.Command.Students
+﻿using Ozz.Core.ApiReponses;
+
+namespace SATSApp.Business.Command.Students
 {
-    public class UpdateStudentCommand : IRequest<int>
+    public class UpdateStudentCommand : IRequest<Response<int>>
     {
         public int StudentId { get; set; }
         public string FirstName { get; set; }

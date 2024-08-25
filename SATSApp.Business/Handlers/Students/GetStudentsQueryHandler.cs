@@ -1,12 +1,8 @@
-﻿using MediatR;
-using SATSApp.Business.Queries.Students;
-using SATSApp.Business.Repositories.Abstract;
-using SATSApp.Business.Specificatiosn.Students;
-using SATSApp.Data.Entities;
+﻿using Ozz.Core.ApiReponses;
 
 namespace SATSApp.Business.Handlers.Students
 {
-    public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, List<Student>>
+    public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, Response<List<Student>>>
     {
         private readonly IStudentRepository _studentRepository;
         public GetStudentsQueryHandler(IStudentRepository studentRepository)
@@ -14,18 +10,32 @@ namespace SATSApp.Business.Handlers.Students
             _studentRepository = studentRepository;
         }
 
-        public async Task<List<Student>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<Student>>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
         {
-            var students = await _studentRepository.ListAsync(new GetStudentListReadOnlySpec(), cancellationToken);
-            return students;
+
+            try
+            {
+                var students = await _studentRepository.ListAsync(new GetStudentListReadOnlySpec(), cancellationToken);
+                return new Response<List<Student>>
+                {
+                    StatusCode = 200,
+                    IsSuccess = true,
+                    Message = "Students retrived succesfully",
+                    Error = null,
+                    Data = students
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response<List<Student>>
+                {
+                    StatusCode = 500,
+                    IsSuccess = false,
+                    Message = "An error occured while retrieving students.",
+                    Error = ex.Message,
+                    Data = null
+                };
+            }
         }
     }
 }
-
-
-//Handler 
-/*
-  handler : IRequestHandler<QueryRequest,Response>
-  GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, List<Student>>
- 
- */
