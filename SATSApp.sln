@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SATSApp.Presentation", "SATSApp.Presentation\SATSApp.Presentation.csproj", "{5021D525-00A7-4F2F-800C-D822A5522E9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SATSApp.Presentation", "SATSApp.Presentation\SATSApp.Presentation.csproj", "{5021D525-00A7-4F2F-800C-D822A5522E9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SATSApp.Data", "SATSApp.Data\SATSApp.Data.csproj", "{282A2F09-0AA5-4B95-817F-22C1A6B0F943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SATSApp.Data", "SATSApp.Data\SATSApp.Data.csproj", "{282A2F09-0AA5-4B95-817F-22C1A6B0F943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SATSApp.Business", "SATSApp.Business\SATSApp.Business.csproj", "{FFC711CA-9B40-49A4-A2C8-BA01D2ACE42B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SATSApp.Business", "SATSApp.Business\SATSApp.Business.csproj", "{FFC711CA-9B40-49A4-A2C8-BA01D2ACE42B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
