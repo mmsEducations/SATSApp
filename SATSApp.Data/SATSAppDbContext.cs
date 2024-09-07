@@ -14,6 +14,8 @@ namespace SATSApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //1-Configurasyon ayarlarına göre tablo oluştur(kolon adı,tipi,ilişkiler..)
+            //2-Seed dataların oluşturulması
             modelBuilder.AddEntityConfiguration();
             modelBuilder.CreateSeedData();
         }
