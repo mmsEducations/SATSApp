@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SATSApp.Data.Entities;
 using SATSApp.Data.Extensions;
 
 namespace SATSApp.Data
 {
-    public class SATSAppDbContext : DbContext
+    public class SATSAppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         public SATSAppDbContext() { }
         public SATSAppDbContext(DbContextOptions<SATSAppDbContext> options) : base(options) { }
@@ -16,8 +18,10 @@ namespace SATSApp.Data
         {
             //1-Configurasyon ayarlarına göre tablo oluştur(kolon adı,tipi,ilişkiler..)
             //2-Seed dataların oluşturulması
+            base.OnModelCreating(modelBuilder); //Kullanıcı tablolarının otomatik oluşması için önemli
             modelBuilder.AddEntityConfiguration();
             modelBuilder.CreateSeedData();
+            modelBuilder.RenameIntityConfigurationTables(); //Rename Creating Identity Tables 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -83,7 +83,27 @@ Authantication Yöntemleri
 
   DTOs :Veri taþýyan nesneler 
   Entity to DTOs
- ----------------------------------------------------
+  ----------------------------------------------------
+ -Microsoft.AspNetCore.Identity
+  Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+  Microsft Identity Implementation Adýmlarý 
+  1)Dbcontext deðiþikliði
+  2)program.cs deðiþikliði
+  ---- 
+  1-
+  class SATSAppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>
+
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+     base.OnModelCreating(modelBuilder); //ZORUNLU : Kullanýcý tablolarýnýn otomatik oluþmasý için önemli
+     modelBuilder.RenameIntityConfigurationTables(); //Rename Creating Identity Tables 
+  }
+  2-
+  //Identity management entegration 
+  builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<SATSAppDbContext>().AddDefaultTokenProviders();
+
+  ----------------------------------------------------
 
 Proje Katmanlarý 
 1)Business 

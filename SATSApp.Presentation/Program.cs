@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Ozz.Core.Authorization;
@@ -28,6 +29,11 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 builder.Services.AddDbContext<SATSAppDbContext>(options =>
     options.UseNpgsql(@"Host=localhost;Database=postgres;Username=postgres;Password=mms;Search Path=satsapp")
 );
+
+//Identity management entegration 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<SATSAppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
