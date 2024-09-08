@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Ozz.Core.ApiReponses;
 using SATSApp.Business.Command.Students;
+using SATSApp.Business.Dtos;
 using SATSApp.Business.Queries.Students;
 using SATSApp.Data.Entities;
 using SATSApp.Presentation.Common;
@@ -18,16 +19,28 @@ namespace SATSApp.Presentation.Controllers
 
         }
 
-        [HttpGet]
-        [ProducesResponseType(typeof(Response<List<Student>>), 200)]
-        [ProducesResponseType(typeof(Response<List<Student>>), 400)]
-        [ProducesResponseType(typeof(Response<List<Student>>), 401)]
-        [ProducesResponseType(typeof(Response<List<Student>>), 500)]
+        [HttpGet("students")]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 200)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 400)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 401)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 500)]
         public async Task<IActionResult> GetStudents()
         {
             var students = await _mediator.Send(new GetStudentsQuery());
             return Ok(students);
         }
+
+        [HttpGet("studentsPagination")]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 200)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 400)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 401)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 500)]
+        public async Task<IActionResult> GetStudentsPagination([FromQuery] GetStudentsPaginationQuery query)
+        {
+            var students = await _mediator.Send(query);
+            return Ok(students);
+        }
+
 
 
         [HttpGet("{id}")]

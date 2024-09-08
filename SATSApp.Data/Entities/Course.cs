@@ -6,7 +6,6 @@
         public string CourseName { get; set; }
         public string CourseDescription { get; set; }
 
-
         public static Course Create(string courseName, string courseDescription)
         {
             return new Course

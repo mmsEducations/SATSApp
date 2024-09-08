@@ -1,33 +1,38 @@
-﻿using Ozz.Core.ApiReponses;
+﻿using AutoMapper;
+using Ozz.Core.ApiReponses;
+using SATSApp.Business.Dtos;
+using System.Net;
 
 namespace SATSApp.Business.Handlers.Students
 {
-    public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, Response<List<Student>>>
+    public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, Response<List<StudentDto>>>
     {
         private readonly IStudentRepository _studentRepository;
-        public GetStudentsQueryHandler(IStudentRepository studentRepository)
+        private readonly IMapper _mapper;
+
+        public GetStudentsQueryHandler(IStudentRepository studentRepository, IMapper mapper)
         {
             _studentRepository = studentRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Response<List<Student>>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<StudentDto>>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
         {
-
             try
             {
-                var students = await _studentRepository.ListAsync(new GetStudentListReadOnlySpec(), cancellationToken);
-                return new Response<List<Student>>
+                var studentDtos = _mapper.Map<List<StudentDto>>(await _studentRepository.ListAsync(new GetStudentListReadOnlySpec(), cancellationToken));
+                return new Response<List<StudentDto>>
                 {
-                    StatusCode = 200,
+                    StatusCode = (int)HttpStatusCode.OK,
                     IsSuccess = true,
                     Message = "Students retrived succesfully",
                     Error = null,
-                    Data = students
+                    Data = studentDtos
                 };
             }
             catch (Exception ex)
             {
-                return new Response<List<Student>>
+                return new Response<List<StudentDto>>
                 {
                     StatusCode = 500,
                     IsSuccess = false,

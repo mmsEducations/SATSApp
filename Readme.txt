@@ -74,6 +74,16 @@ Authantication Yöntemleri
 -Ardalis.Specification.EntityFrameworkCore
  Ardalis kütüphanesini Enity Framework Core ile entegre eder.Bu Entegrasyon EF ile çalýþan veri eirþim katmanlarýnda Specification'ý kullanmamýzý saðlar
 
+ -Mapper
+  AutoMapper
+  AutoMapper.Extensions.Microsoft.DependencyInjection
+
+  AutoMapper :Nesneler arasý dönüþüm yapmayý kolaylaþtýrmak için kullanýlýr,AutoMapper verilen nesnler arasýnda 
+  otamatik bir þekilde dönüþüm yapar ve manuel mapping'e göre kod daha temiz ve düzenli olur
+
+  DTOs :Veri taþýyan nesneler 
+  Entity to DTOs
+ ----------------------------------------------------
 
 Proje Katmanlarý 
 1)Business 
@@ -165,3 +175,37 @@ Proje Katmanlarý
    deðiþtirmeden uygulaya deðiþiklik yapabilme kabiliyeti vermiþ oluyorum 
 -Program.cs
    Projedeki ana yapýlarýn Injectionlarýn yönetilip pipeline oluþturulup ayaða kalktýðý yer 
+
+
+   ----------------------------------------------------------------------------------------------------------------
+   AutoMapper Example 
+   public class CourseProfile : Profile
+    {
+        public CourseProfile()
+        {
+            //Source -> Destination
+            CreateMap<Course, CourseDto>();
+        }
+    }
+
+      public class GetCoursesQueryHandler : IRequestHandler<GetCoursesQuery, List<CourseDto>>
+    {
+        private readonly ICourseRepository _courseRepository;
+        private readonly IMapper _mapper;
+
+        public GetCoursesQueryHandler(ICourseRepository courseRepository, IMapper mapper)
+        {
+            _courseRepository = courseRepository;
+            _mapper = mapper;
+        }
+
+        public async Task<List<CourseDto>> Handle(GetCoursesQuery request, CancellationToken cancellationToken)
+        {
+            var courses = await _courseRepository.ListAsync(new GetCourseListReadOnlySpec(), cancellationToken);
+
+            return _mapper.Map<List<CourseDto>>(courses); //map 'Course' to CourseDto
+        }
+    }
+    ----------------------------------------------------------------------------------------------------------------
+
+    appsettings

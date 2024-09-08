@@ -9,6 +9,7 @@ using SATSApp.Business.Repositories.Abstract;
 using SATSApp.Business.Repositories.Concrate;
 using SATSApp.Business.Validations;
 using SATSApp.Data;
+using SATSApp.Presentation.Extensions;
 using System.Reflection;
 using System.Text;
 
@@ -31,10 +32,11 @@ builder.Services.AddDbContext<SATSAppDbContext>(options =>
 builder.Services.AddTransient<IStudentRepository, StudentRepository>();
 builder.Services.AddTransient<ICourseRepository, CourseRepository>();
 
-
 builder.Services.AddControllers()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateStudentCommandValidator>());
 
+//DI AutoMapper Profiler
+builder.Services.AddAutoMapperProfiles();
 
 //1:JWT token 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SATSApp.Business.Command.Courses;
+using SATSApp.Business.Dtos;
 using SATSApp.Business.Queries.Courses;
-using SATSApp.Data.Entities;
 using SATSApp.Presentation.Common;
 
 namespace SATSApp.Presentation.Controllers
@@ -15,12 +15,12 @@ namespace SATSApp.Presentation.Controllers
         {
         }
 
-        [HttpGet]
+        [HttpGet("courses")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<List<Course>>> GetCourses()
+        public async Task<ActionResult<List<CourseDto>>> GetCourses()
         {
             var students = await _mediator.Send(new GetCoursesQuery());
             return Ok(students);
@@ -32,7 +32,7 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        public async Task<ActionResult<CourseDto>> GetCourse(int id)
         {
             var students = await _mediator.Send(new GetCourseByIdQuery() { CourseId = id });
             return Ok(students);
