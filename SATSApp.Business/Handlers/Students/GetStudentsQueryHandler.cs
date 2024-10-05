@@ -5,6 +5,7 @@ using System.Net;
 
 namespace SATSApp.Business.Handlers.Students
 {
+
     public class GetStudentsQueryHandler : IRequestHandler<GetStudentsQuery, Response<List<StudentDto>>>
     {
         private readonly IStudentRepository _studentRepository;

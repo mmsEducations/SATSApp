@@ -1,64 +1,74 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Ozz.Core.Authorization;
-using SATSApp.Business.Models;
+using SATSApp.Business.Queries.Users;
 
 namespace SATSApp.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorizationController : ControllerBase
+    public class AuthorizationController : SATSBaseController
     {
-        private readonly TokenService _tokenService;
-        private readonly UserManager<IdentityUser> _userManager;
-
-        public AuthorizationController(TokenService tokenService, UserManager<IdentityUser> userManager)
+        public AuthorizationController(ISender mediator) : base(mediator)
         {
-            _tokenService = tokenService;
-            _userManager = userManager;
         }
+
 
         [AllowAnonymous]
         [HttpPost("sign-in")]
-        public IActionResult SingIn([FromBody] LoginRequest request)
+        public async Task<IActionResult> SingIn([FromBody] SignInQuery request)
         {
-            if (request.UserName == "1" && request.Password == "1")
+            //Sistemem giriş yapan kullanıcı sistemde mevcut ise Token üretmemiz gerekir.Kullanıcı bu token sayesinde mevcut sistem içerisinde işlemler yapar
+
+            try
             {
-                var token = _tokenService.GenerateToken(userId: "1", userEmail: "1");
+                var token = await _mediator.Send(request);
                 return Ok(new { Token = token });
             }
-
-            return Unauthorized();
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Error = ex.Message });
+            }
+            catch (ArithmeticException ex)
+            {
+                return BadRequest(new { Error = ex.Message });
+            }
         }
 
-        [AllowAnonymous]
-        [HttpPost("sign-up")]//User Register 
-        public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
-        {
-            //IdenetiyUser nesnesinin oluşturulur 
-            var user = new IdentityUser
-            {
-                UserName = request.UserName,
-                Email = request.UserName,
-            };
+        ////[Authorize]//401
+        //[Authorize(Roles = "Admin")]//403
+        //[HttpPost("sign-up")]//User Register 
+        //public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
+        //{
+        //    //IdenetiyUser nesnesinin oluşturulur 
+        //    var user = new IdentityUser
+        //    {
+        //        UserName = request.UserName,
+        //        Email = request.UserName,
+        //    };
 
-            //Kullanıcının Oluşturulması
-            var result = await _userManager.CreateAsync(user, request.Password);
+        //    //Kullanıcının Oluşturulması
+        //    var result = await _userManager.CreateAsync(user, request.Password);
 
-            if (result.Succeeded)
-            {
-                //Kullanıcı'ya token üret 
-                var token = _tokenService.GenerateToken(userId: user.Id, userEmail: user.Email);
-                Ok(new { Token = token });
-            }
+        //    if (result.Succeeded)
+        //    {
+        //        //Kullanıcı'ya token üret 
+        //        var token = _tokenService.GenerateToken(userId: user.Id, userEmail: user.Email);
+        //        Ok(new { Token = token });
+        //    }
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+        //    foreach (var error in result.Errors)
+        //    {
+        //        ModelState.AddModelError(string.Empty, error.Description);
+        //    }
 
-            return BadRequest(new { Error = ModelState });
-        }
+        //    return BadRequest(new { Error = ModelState });
+        //}
     }
 }
+/*
+ 1)Tüm Controllerları ve içlerindeki endpointleri içeren şekilde kod yazma,Ara bir sınıf yapılır ve bu sınıf tüm ednpointleri etkileyeceköşekilde yazılır
+ 2)Controlller
+ 3)Endpoint
+ 
+ */

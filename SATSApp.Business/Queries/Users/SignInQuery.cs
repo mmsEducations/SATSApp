@@ -1,6 +1,6 @@
-﻿namespace SATSApp.Business.Models
+﻿namespace SATSApp.Business.Queries.Users
 {
-    public class LoginRequest
+    public class SignInQuery : IRequest<string>
     {
         public required string UserName { get; set; }
         public required string Password { get; set; }
