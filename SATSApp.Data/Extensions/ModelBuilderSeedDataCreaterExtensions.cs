@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SATSApp.Data.Entities;
 
 namespace SATSApp.Data.Extensions
@@ -13,6 +14,11 @@ namespace SATSApp.Data.Extensions
 
             var dummyCourses = CreateDummyCourseData();
             modelBuilder.Entity<Course>().HasData(dummyCourses);
+
+            //Burdan Role yada User ekleme işlemleri yapılabilir
+            modelBuilder.Entity<IdentityRole>().HasData(
+              new IdentityRole { Id = "4", Name = "TestRole", NormalizedName = "TESTROLE" }
+           );
         }
 
         private static List<Student> CreateDummyStudentData()

@@ -1,8 +1,10 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Ozz.Core.ApiReponses;
 using SATSApp.Business.Command.Students;
 using SATSApp.Business.Dtos;
+using SATSApp.Business.Infrustructure.Constant;
 using SATSApp.Business.Queries.Students;
 using SATSApp.Data.Entities;
 using SATSApp.Presentation.Common;
@@ -11,7 +13,7 @@ namespace SATSApp.Presentation.Controllers
 {
     [Route($"{ApiConstant.RouteStudent}")]
     [ApiController]
-    //[Authorize]
+
     public class StudentController : SATSBaseController
     {
         public StudentController(ISender mediator) : base(mediator)
@@ -19,10 +21,12 @@ namespace SATSApp.Presentation.Controllers
 
         }
 
+        [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         [HttpGet("students")]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 200)]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 400)]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 401)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 403)]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 500)]
         public async Task<IActionResult> GetStudents()
         {
@@ -30,10 +34,12 @@ namespace SATSApp.Presentation.Controllers
             return Ok(students);
         }
 
+        [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         [HttpGet("studentsPagination")]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 200)]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 400)]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 401)]
+        [ProducesResponseType(typeof(Response<List<StudentDto>>), 403)]
         [ProducesResponseType(typeof(Response<List<StudentDto>>), 500)]
         public async Task<IActionResult> GetStudentsPagination([FromQuery] GetStudentsPaginationQuery query)
         {
@@ -47,8 +53,10 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(typeof(Response<Student>), 200)]
         [ProducesResponseType(typeof(Response<Student>), 400)]
         [ProducesResponseType(typeof(Response<Student>), 401)]
+        [ProducesResponseType(typeof(Response<Student>), 403)]
         [ProducesResponseType(typeof(Response<Student>), 404)]
         [ProducesResponseType(typeof(Response<Student>), 500)]
+        [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         public async Task<IActionResult> GetStudent([FromRoute] int id)
         {
             var students = await _mediator.Send(new GetStudentByIdQuery() { StudentId = id });
@@ -60,8 +68,10 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(typeof(Response<bool>), 204)]
         [ProducesResponseType(typeof(Response<bool>), 400)]
         [ProducesResponseType(typeof(Response<bool>), 401)]
+        [ProducesResponseType(typeof(Response<bool>), 403)]
         [ProducesResponseType(typeof(Response<bool>), 404)]
         [ProducesResponseType(typeof(Response<bool>), 500)]
+        [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
             await _mediator.Send(new DeleteStudentCommand() { StudentId = id });
@@ -73,8 +83,9 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(typeof(Response<int>), 201)]
         [ProducesResponseType(typeof(Response<int>), 400)]
         [ProducesResponseType(typeof(Response<int>), 401)]
+        [ProducesResponseType(typeof(Response<int>), 403)]
         [ProducesResponseType(typeof(Response<int>), 500)]
-
+        [Authorize(Roles = $"{RoleName.EditUser}")]
         public async Task<IActionResult> CreateStudent(CreateStudentCommand command)
         {
             var id = await _mediator.Send(command);
@@ -85,8 +96,10 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(typeof(Response<int>), 200)]
         [ProducesResponseType(typeof(Response<int>), 400)]
         [ProducesResponseType(typeof(Response<int>), 401)]
+        [ProducesResponseType(typeof(Response<int>), 403)]
         [ProducesResponseType(typeof(Response<int>), 404)]
         [ProducesResponseType(typeof(Response<int>), 500)]
+        [Authorize(Roles = $"{RoleName.EditUser}")]
         public async Task<IActionResult> UpdateStudent(UpdateStudentCommand command)
         {
             await _mediator.Send(command);

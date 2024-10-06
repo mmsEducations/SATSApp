@@ -18,6 +18,4 @@ namespace SATSApp.Business.Handlers.Courses
         }
     }
 
-
-
 }

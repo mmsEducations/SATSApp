@@ -1,4 +1,4 @@
-﻿namespace SATSApp.Business.Queries.Users
+﻿namespace SATSApp.Business.Queries.Auth
 {
     public class SignInQuery : IRequest<string>
     {

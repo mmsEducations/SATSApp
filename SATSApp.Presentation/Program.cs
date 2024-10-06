@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Ozz.Core.Authorization;
 using Ozz.Core.Extensions.Swagger;
 using SATSApp.Business.Handlers.Students;
+using SATSApp.Business.Infrustructure;
+using SATSApp.Business.Infrustructure.Constant;
 using SATSApp.Business.Repositories.Abstract;
 using SATSApp.Business.Repositories.Concrate;
 using SATSApp.Business.Validations;
@@ -77,10 +79,25 @@ builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddSwaggerConfiguration();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(RoleName.Admin, policy => policy.RequireRole(RoleName.Admin));
+    options.AddPolicy(RoleName.ViewUser, policy => policy.RequireRole(RoleName.ViewUser));
+    options.AddPolicy(RoleName.EditUser, policy => policy.RequireRole(RoleName.EditUser));
+});
 
 //Json Web Token Ayarlamalarý 
 
 var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var configuration = services.GetRequiredService<IConfiguration>();
+    await SeedRoleService.SeedRoles(services, configuration);
+    await SeedUserService.SeedUser(services, configuration);
+}
 
 //Swagger_2
 if (app.Environment.IsDevelopment())

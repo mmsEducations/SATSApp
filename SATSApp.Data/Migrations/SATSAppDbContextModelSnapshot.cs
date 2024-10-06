@@ -46,6 +46,14 @@ namespace SATSApp.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "4",
+                            Name = "TestRole",
+                            NormalizedName = "TESTROLE"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -259,7 +267,7 @@ namespace SATSApp.Data.Migrations
                             CourseId = 1,
                             CourseDescription = "Description for Course1",
                             CourseName = "Ozz Akademi1",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2634),
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7938),
                             IsDeleted = false
                         },
                         new
@@ -267,7 +275,7 @@ namespace SATSApp.Data.Migrations
                             CourseId = 2,
                             CourseDescription = "Description for Course2",
                             CourseName = "Ozz Akademi2",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2637),
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7943),
                             IsDeleted = false
                         });
                 });
@@ -327,207 +335,97 @@ namespace SATSApp.Data.Migrations
                         new
                         {
                             StudentId = 1,
-                            BirthDate = new DateTime(2023, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2456),
-                            City = "Sivas",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2468),
-                            Email = "VolkanArslan@example.com",
-                            FirstName = "Volkan",
+                            BirthDate = new DateTime(2023, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7030),
+                            City = "Adıyaman",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7091),
+                            Email = "ÖmerKoç@example.com",
+                            FirstName = "Ömer",
                             IsDeleted = false,
-                            LastName = "Arslan"
+                            LastName = "Koç"
                         },
                         new
                         {
                             StudentId = 2,
-                            BirthDate = new DateTime(2022, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2471),
-                            City = "Zonguldak",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2472),
-                            Email = "MuratAkman@example.com",
-                            FirstName = "Murat",
+                            BirthDate = new DateTime(2022, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7094),
+                            City = "Kayseri",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7095),
+                            Email = "AlperKaya@example.com",
+                            FirstName = "Alper",
                             IsDeleted = false,
-                            LastName = "Akman"
+                            LastName = "Kaya"
                         },
                         new
                         {
                             StudentId = 3,
-                            BirthDate = new DateTime(2021, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2473),
-                            City = "Muş",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2473),
-                            Email = "BüşraAcar@example.com",
-                            FirstName = "Büşra",
+                            BirthDate = new DateTime(2021, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7096),
+                            City = "Tokat",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7096),
+                            Email = "PinarÖzkan@example.com",
+                            FirstName = "Pinar",
                             IsDeleted = false,
-                            LastName = "Acar"
+                            LastName = "Özkan"
                         },
                         new
                         {
                             StudentId = 4,
-                            BirthDate = new DateTime(2020, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2474),
-                            City = "Denizli",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2474),
-                            Email = "CanerYılmaz@example.com",
-                            FirstName = "Caner",
+                            BirthDate = new DateTime(2020, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7097),
+                            City = "Batman",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7098),
+                            Email = "KadirÇetin@example.com",
+                            FirstName = "Kadir",
                             IsDeleted = false,
-                            LastName = "Yılmaz"
+                            LastName = "Çetin"
                         },
                         new
                         {
                             StudentId = 5,
-                            BirthDate = new DateTime(2019, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2475),
-                            City = "Kayseri",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2475),
-                            Email = "BurakYalçın@example.com",
-                            FirstName = "Burak",
+                            BirthDate = new DateTime(2019, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7100),
+                            City = "Aksaray",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7106),
+                            Email = "EnginÇetin@example.com",
+                            FirstName = "Engin",
                             IsDeleted = false,
-                            LastName = "Yalçın"
+                            LastName = "Çetin"
                         },
                         new
                         {
                             StudentId = 6,
-                            BirthDate = new DateTime(2018, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2477),
-                            City = "Kastamonu",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2478),
-                            Email = "MuhammedGül@example.com",
-                            FirstName = "Muhammed",
+                            BirthDate = new DateTime(2018, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7112),
+                            City = "Bingöl",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7112),
+                            Email = "EsraKoç@example.com",
+                            FirstName = "Esra",
                             IsDeleted = false,
-                            LastName = "Gül"
+                            LastName = "Koç"
                         },
                         new
                         {
                             StudentId = 7,
-                            BirthDate = new DateTime(2017, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2479),
-                            City = "Kars",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2479),
-                            Email = "AylinAkman@example.com",
-                            FirstName = "Aylin",
+                            BirthDate = new DateTime(2017, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7113),
+                            City = "Antalya",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7114),
+                            Email = "VolkanKaya@example.com",
+                            FirstName = "Volkan",
                             IsDeleted = false,
-                            LastName = "Akman"
+                            LastName = "Kaya"
                         },
                         new
                         {
                             StudentId = 8,
-                            BirthDate = new DateTime(2016, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2480),
-                            City = "İstanbul",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2481),
-                            Email = "CanYavuz@example.com",
-                            FirstName = "Can",
+                            BirthDate = new DateTime(2016, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7115),
+                            City = "Kars",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7116),
+                            Email = "AylinDuman@example.com",
+                            FirstName = "Aylin",
                             IsDeleted = false,
-                            LastName = "Yavuz"
+                            LastName = "Duman"
                         },
                         new
                         {
                             StudentId = 9,
-                            BirthDate = new DateTime(2015, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2481),
-                            City = "Ağrı",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2482),
-                            Email = "MuhammedKaya@example.com",
-                            FirstName = "Muhammed",
-                            IsDeleted = false,
-                            LastName = "Kaya"
-                        },
-                        new
-                        {
-                            StudentId = 10,
-                            BirthDate = new DateTime(2014, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2483),
-                            City = "Sakarya",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2484),
-                            Email = "VolkanArı@example.com",
-                            FirstName = "Volkan",
-                            IsDeleted = false,
-                            LastName = "Arı"
-                        },
-                        new
-                        {
-                            StudentId = 11,
-                            BirthDate = new DateTime(2013, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2484),
-                            City = "Bartın",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2485),
-                            Email = "İbrahimKaya@example.com",
-                            FirstName = "İbrahim",
-                            IsDeleted = false,
-                            LastName = "Kaya"
-                        },
-                        new
-                        {
-                            StudentId = 12,
-                            BirthDate = new DateTime(2012, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2485),
-                            City = "Elazığ",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2486),
-                            Email = "EbruYurt@example.com",
-                            FirstName = "Ebru",
-                            IsDeleted = false,
-                            LastName = "Yurt"
-                        },
-                        new
-                        {
-                            StudentId = 13,
-                            BirthDate = new DateTime(2011, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2486),
-                            City = "Karabük",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2487),
-                            Email = "HakanErdem@example.com",
-                            FirstName = "Hakan",
-                            IsDeleted = false,
-                            LastName = "Erdem"
-                        },
-                        new
-                        {
-                            StudentId = 14,
-                            BirthDate = new DateTime(2010, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2487),
-                            City = "Kilis",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2488),
-                            Email = "YasinArı@example.com",
-                            FirstName = "Yasin",
-                            IsDeleted = false,
-                            LastName = "Arı"
-                        },
-                        new
-                        {
-                            StudentId = 15,
-                            BirthDate = new DateTime(2009, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2489),
-                            City = "Şanlıurfa",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2489),
-                            Email = "KemalAkman@example.com",
-                            FirstName = "Kemal",
-                            IsDeleted = false,
-                            LastName = "Akman"
-                        },
-                        new
-                        {
-                            StudentId = 16,
-                            BirthDate = new DateTime(2008, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2490),
-                            City = "Amasya",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2490),
-                            Email = "NurBozkurt@example.com",
-                            FirstName = "Nur",
-                            IsDeleted = false,
-                            LastName = "Bozkurt"
-                        },
-                        new
-                        {
-                            StudentId = 17,
-                            BirthDate = new DateTime(2007, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2491),
-                            City = "Nevşehir",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2491),
-                            Email = "SinanKaya@example.com",
-                            FirstName = "Sinan",
-                            IsDeleted = false,
-                            LastName = "Kaya"
-                        },
-                        new
-                        {
-                            StudentId = 18,
-                            BirthDate = new DateTime(2006, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2493),
-                            City = "Afyonkarahisar",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2493),
-                            Email = "AbbasKaya@example.com",
-                            FirstName = "Abbas",
-                            IsDeleted = false,
-                            LastName = "Kaya"
-                        },
-                        new
-                        {
-                            StudentId = 19,
-                            BirthDate = new DateTime(2005, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2494),
-                            City = "İstanbul",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2494),
+                            BirthDate = new DateTime(2015, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7117),
+                            City = "Ardahan",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7117),
                             Email = "PinarKurt@example.com",
                             FirstName = "Pinar",
                             IsDeleted = false,
@@ -535,14 +433,124 @@ namespace SATSApp.Data.Migrations
                         },
                         new
                         {
-                            StudentId = 20,
-                            BirthDate = new DateTime(2004, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2495),
-                            City = "Erzincan",
-                            CreaDate = new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2496),
-                            Email = "AbbasArı@example.com",
+                            StudentId = 10,
+                            BirthDate = new DateTime(2014, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7119),
+                            City = "Erzurum",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7120),
+                            Email = "AbbasDemir@example.com",
                             FirstName = "Abbas",
                             IsDeleted = false,
-                            LastName = "Arı"
+                            LastName = "Demir"
+                        },
+                        new
+                        {
+                            StudentId = 11,
+                            BirthDate = new DateTime(2013, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7121),
+                            City = "Diyarbakır",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7121),
+                            Email = "HaticeÖzkan@example.com",
+                            FirstName = "Hatice",
+                            IsDeleted = false,
+                            LastName = "Özkan"
+                        },
+                        new
+                        {
+                            StudentId = 12,
+                            BirthDate = new DateTime(2012, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7122),
+                            City = "İstanbul",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7122),
+                            Email = "ŞirinYavuz@example.com",
+                            FirstName = "Şirin",
+                            IsDeleted = false,
+                            LastName = "Yavuz"
+                        },
+                        new
+                        {
+                            StudentId = 13,
+                            BirthDate = new DateTime(2011, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7123),
+                            City = "Iğdır",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7125),
+                            Email = "SevgiYavuz@example.com",
+                            FirstName = "Sevgi",
+                            IsDeleted = false,
+                            LastName = "Yavuz"
+                        },
+                        new
+                        {
+                            StudentId = 14,
+                            BirthDate = new DateTime(2010, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7126),
+                            City = "Kütahya",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7126),
+                            Email = "MeryemYalçın@example.com",
+                            FirstName = "Meryem",
+                            IsDeleted = false,
+                            LastName = "Yalçın"
+                        },
+                        new
+                        {
+                            StudentId = 15,
+                            BirthDate = new DateTime(2009, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7127),
+                            City = "Bartın",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7128),
+                            Email = "HakanEkinci@example.com",
+                            FirstName = "Hakan",
+                            IsDeleted = false,
+                            LastName = "Ekinci"
+                        },
+                        new
+                        {
+                            StudentId = 16,
+                            BirthDate = new DateTime(2008, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7128),
+                            City = "Gümüşhane",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7129),
+                            Email = "TolgaÇetin@example.com",
+                            FirstName = "Tolga",
+                            IsDeleted = false,
+                            LastName = "Çetin"
+                        },
+                        new
+                        {
+                            StudentId = 17,
+                            BirthDate = new DateTime(2007, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7129),
+                            City = "Ankara",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7130),
+                            Email = "BarışÖzkan@example.com",
+                            FirstName = "Barış",
+                            IsDeleted = false,
+                            LastName = "Özkan"
+                        },
+                        new
+                        {
+                            StudentId = 18,
+                            BirthDate = new DateTime(2006, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7132),
+                            City = "Şırnak",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7132),
+                            Email = "MuratÇetin@example.com",
+                            FirstName = "Murat",
+                            IsDeleted = false,
+                            LastName = "Çetin"
+                        },
+                        new
+                        {
+                            StudentId = 19,
+                            BirthDate = new DateTime(2005, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7133),
+                            City = "Osmaniye",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7133),
+                            Email = "OrhanToprak@example.com",
+                            FirstName = "Orhan",
+                            IsDeleted = false,
+                            LastName = "Toprak"
+                        },
+                        new
+                        {
+                            StudentId = 20,
+                            BirthDate = new DateTime(2004, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7134),
+                            City = "Afyonkarahisar",
+                            CreaDate = new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7134),
+                            Email = "EmineÇelik@example.com",
+                            FirstName = "Emine",
+                            IsDeleted = false,
+                            LastName = "Çelik"
                         });
                 });
 

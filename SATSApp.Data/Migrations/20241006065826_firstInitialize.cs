@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SATSApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class allmigration_added : Migration
+    public partial class firstInitialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -205,9 +205,14 @@ namespace SATSApp.Data.Migrations
                 columns: new[] { "course_id", "course_description", "course_name", "crea_date", "is_deleted" },
                 values: new object[,]
                 {
-                    { 1, "Description for Course1", "Ozz Akademi1", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2634), false },
-                    { 2, "Description for Course2", "Ozz Akademi2", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2637), false }
+                    { 1, "Description for Course1", "Ozz Akademi1", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7938), false },
+                    { 2, "Description for Course2", "Ozz Akademi2", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7943), false }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "4", null, "TestRole", "TESTROLE" });
 
             migrationBuilder.InsertData(
                 schema: "satsapp",
@@ -215,26 +220,26 @@ namespace SATSApp.Data.Migrations
                 columns: new[] { "student_id", "birth_date", "city", "crea_date", "email", "first_name", "is_deleted", "last_name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2456), "Sivas", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2468), "VolkanArslan@example.com", "Volkan", false, "Arslan" },
-                    { 2, new DateTime(2022, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2471), "Zonguldak", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2472), "MuratAkman@example.com", "Murat", false, "Akman" },
-                    { 3, new DateTime(2021, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2473), "Muş", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2473), "BüşraAcar@example.com", "Büşra", false, "Acar" },
-                    { 4, new DateTime(2020, 9, 9, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2474), "Denizli", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2474), "CanerYılmaz@example.com", "Caner", false, "Yılmaz" },
-                    { 5, new DateTime(2019, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2475), "Kayseri", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2475), "BurakYalçın@example.com", "Burak", false, "Yalçın" },
-                    { 6, new DateTime(2018, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2477), "Kastamonu", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2478), "MuhammedGül@example.com", "Muhammed", false, "Gül" },
-                    { 7, new DateTime(2017, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2479), "Kars", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2479), "AylinAkman@example.com", "Aylin", false, "Akman" },
-                    { 8, new DateTime(2016, 9, 10, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2480), "İstanbul", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2481), "CanYavuz@example.com", "Can", false, "Yavuz" },
-                    { 9, new DateTime(2015, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2481), "Ağrı", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2482), "MuhammedKaya@example.com", "Muhammed", false, "Kaya" },
-                    { 10, new DateTime(2014, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2483), "Sakarya", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2484), "VolkanArı@example.com", "Volkan", false, "Arı" },
-                    { 11, new DateTime(2013, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2484), "Bartın", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2485), "İbrahimKaya@example.com", "İbrahim", false, "Kaya" },
-                    { 12, new DateTime(2012, 9, 11, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2485), "Elazığ", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2486), "EbruYurt@example.com", "Ebru", false, "Yurt" },
-                    { 13, new DateTime(2011, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2486), "Karabük", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2487), "HakanErdem@example.com", "Hakan", false, "Erdem" },
-                    { 14, new DateTime(2010, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2487), "Kilis", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2488), "YasinArı@example.com", "Yasin", false, "Arı" },
-                    { 15, new DateTime(2009, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2489), "Şanlıurfa", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2489), "KemalAkman@example.com", "Kemal", false, "Akman" },
-                    { 16, new DateTime(2008, 9, 12, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2490), "Amasya", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2490), "NurBozkurt@example.com", "Nur", false, "Bozkurt" },
-                    { 17, new DateTime(2007, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2491), "Nevşehir", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2491), "SinanKaya@example.com", "Sinan", false, "Kaya" },
-                    { 18, new DateTime(2006, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2493), "Afyonkarahisar", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2493), "AbbasKaya@example.com", "Abbas", false, "Kaya" },
-                    { 19, new DateTime(2005, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2494), "İstanbul", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2494), "PinarKurt@example.com", "Pinar", false, "Kurt" },
-                    { 20, new DateTime(2004, 9, 13, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2495), "Erzincan", new DateTime(2024, 9, 8, 9, 18, 31, 903, DateTimeKind.Utc).AddTicks(2496), "AbbasArı@example.com", "Abbas", false, "Arı" }
+                    { 1, new DateTime(2023, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7030), "Adıyaman", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7091), "ÖmerKoç@example.com", "Ömer", false, "Koç" },
+                    { 2, new DateTime(2022, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7094), "Kayseri", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7095), "AlperKaya@example.com", "Alper", false, "Kaya" },
+                    { 3, new DateTime(2021, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7096), "Tokat", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7096), "PinarÖzkan@example.com", "Pinar", false, "Özkan" },
+                    { 4, new DateTime(2020, 10, 7, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7097), "Batman", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7098), "KadirÇetin@example.com", "Kadir", false, "Çetin" },
+                    { 5, new DateTime(2019, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7100), "Aksaray", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7106), "EnginÇetin@example.com", "Engin", false, "Çetin" },
+                    { 6, new DateTime(2018, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7112), "Bingöl", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7112), "EsraKoç@example.com", "Esra", false, "Koç" },
+                    { 7, new DateTime(2017, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7113), "Antalya", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7114), "VolkanKaya@example.com", "Volkan", false, "Kaya" },
+                    { 8, new DateTime(2016, 10, 8, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7115), "Kars", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7116), "AylinDuman@example.com", "Aylin", false, "Duman" },
+                    { 9, new DateTime(2015, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7117), "Ardahan", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7117), "PinarKurt@example.com", "Pinar", false, "Kurt" },
+                    { 10, new DateTime(2014, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7119), "Erzurum", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7120), "AbbasDemir@example.com", "Abbas", false, "Demir" },
+                    { 11, new DateTime(2013, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7121), "Diyarbakır", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7121), "HaticeÖzkan@example.com", "Hatice", false, "Özkan" },
+                    { 12, new DateTime(2012, 10, 9, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7122), "İstanbul", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7122), "ŞirinYavuz@example.com", "Şirin", false, "Yavuz" },
+                    { 13, new DateTime(2011, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7123), "Iğdır", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7125), "SevgiYavuz@example.com", "Sevgi", false, "Yavuz" },
+                    { 14, new DateTime(2010, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7126), "Kütahya", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7126), "MeryemYalçın@example.com", "Meryem", false, "Yalçın" },
+                    { 15, new DateTime(2009, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7127), "Bartın", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7128), "HakanEkinci@example.com", "Hakan", false, "Ekinci" },
+                    { 16, new DateTime(2008, 10, 10, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7128), "Gümüşhane", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7129), "TolgaÇetin@example.com", "Tolga", false, "Çetin" },
+                    { 17, new DateTime(2007, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7129), "Ankara", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7130), "BarışÖzkan@example.com", "Barış", false, "Özkan" },
+                    { 18, new DateTime(2006, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7132), "Şırnak", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7132), "MuratÇetin@example.com", "Murat", false, "Çetin" },
+                    { 19, new DateTime(2005, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7133), "Osmaniye", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7133), "OrhanToprak@example.com", "Orhan", false, "Toprak" },
+                    { 20, new DateTime(2004, 10, 11, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7134), "Afyonkarahisar", new DateTime(2024, 10, 6, 6, 58, 24, 637, DateTimeKind.Utc).AddTicks(7134), "EmineÇelik@example.com", "Emine", false, "Çelik" }
                 });
 
             migrationBuilder.CreateIndex(

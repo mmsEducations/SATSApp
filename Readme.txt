@@ -228,4 +228,25 @@ Proje Katmanlarý
     }
     ----------------------------------------------------------------------------------------------------------------
 
-    appsettings
+    Roller 
+    Admin 
+    ViewUser
+    EditUser
+
+
+    --Instance alma yöntemleri 
+  --1
+  public static async Task SeedRoles(IServiceProvider serviceProvider)
+  {
+        var roleManager = serviceProvider.GetRequiredService<UserManager<IdentityRole>>();
+  }
+
+  --2
+   private readonly UserManager<IdentityUser> _userManager;
+   public SignInQueryHandler(UserManager<IdentityUser> userManager)
+   {
+        _userManager = userManager;
+   }
+
+   Not:
+   Herhangi bir c# dosaysýnda appsettins.json'a eriþmek için IConfiguration kullanýlmalýdýr

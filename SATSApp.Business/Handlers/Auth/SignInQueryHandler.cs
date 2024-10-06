@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Ozz.Core.Authorization;
-using SATSApp.Business.Queries.Users;
+using SATSApp.Business.Queries.Auth;
 
-namespace SATSApp.Business.Handlers.Users
+namespace SATSApp.Business.Handlers.Auth
 {
     public class SignInQueryHandler : IRequestHandler<SignInQuery, string>
     {
@@ -37,7 +37,9 @@ namespace SATSApp.Business.Handlers.Users
             }
 
 
-            var token = _tokenService.GenerateToken(userId: user.Id, userEmail: user.Email);
+            var userRoles = await _userManager.GetRolesAsync(user) as List<string>;
+
+            var token = _tokenService.GenerateToken(userId: user.Id, userEmail: user.Email, userRoles);
             return token;
         }
     }

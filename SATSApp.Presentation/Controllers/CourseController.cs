@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SATSApp.Business.Command.Courses;
 using SATSApp.Business.Dtos;
+using SATSApp.Business.Infrustructure.Constant;
 using SATSApp.Business.Queries.Courses;
 using SATSApp.Presentation.Common;
 
@@ -19,7 +21,9 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         public async Task<ActionResult<List<CourseDto>>> GetCourses()
         {
             var students = await _mediator.Send(new GetCoursesQuery());
@@ -31,7 +35,10 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
+
         public async Task<ActionResult<CourseDto>> GetCourse(int id)
         {
             var students = await _mediator.Send(new GetCourseByIdQuery() { CourseId = id });
@@ -43,7 +50,9 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = $"{RoleName.EditUser}")]
         public async Task<ActionResult> DeleteCourse(int id)
         {
             await _mediator.Send(new DeleteCourseCommand() { CourseId = id });
@@ -55,7 +64,9 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = $"{RoleName.EditUser}")]
         public async Task<ActionResult<int>> CreateCourse(CreateCourseCommand command)
         {
             var id = await _mediator.Send(command);
@@ -66,7 +77,9 @@ namespace SATSApp.Presentation.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = $"{RoleName.EditUser}")]
         public async Task<ActionResult<int>> UpdateStudent(UpdateCourseCommand command)
         {
             if (command.CourseId <= 0)

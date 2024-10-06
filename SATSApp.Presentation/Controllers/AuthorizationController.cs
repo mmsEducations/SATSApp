@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SATSApp.Business.Queries.Users;
+using SATSApp.Business.Command.Auth;
+using SATSApp.Business.Infrustructure.Constant;
+using SATSApp.Business.Queries.Auth;
 
 namespace SATSApp.Presentation.Controllers
 {
@@ -12,7 +14,6 @@ namespace SATSApp.Presentation.Controllers
         public AuthorizationController(ISender mediator) : base(mediator)
         {
         }
-
 
         [AllowAnonymous]
         [HttpPost("sign-in")]
@@ -35,36 +36,60 @@ namespace SATSApp.Presentation.Controllers
             }
         }
 
-        ////[Authorize]//401
-        //[Authorize(Roles = "Admin")]//403
-        //[HttpPost("sign-up")]//User Register 
-        //public async Task<IActionResult> SignUp([FromBody] SignUpRequest request)
-        //{
-        //    //IdenetiyUser nesnesinin oluşturulur 
-        //    var user = new IdentityUser
-        //    {
-        //        UserName = request.UserName,
-        //        Email = request.UserName,
-        //    };
 
-        //    //Kullanıcının Oluşturulması
-        //    var result = await _userManager.CreateAsync(user, request.Password);
 
-        //    if (result.Succeeded)
-        //    {
-        //        //Kullanıcı'ya token üret 
-        //        var token = _tokenService.GenerateToken(userId: user.Id, userEmail: user.Email);
-        //        Ok(new { Token = token });
-        //    }
+        [HttpPost("add-role")]
+        [Authorize(Roles = $"{RoleName.Admin}")]
+        public async Task<IActionResult> AddRole([FromBody] CreateRoleCommand request)
+        {
+            try
+            {
+                var result = await _mediator.Send(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
 
-        //    foreach (var error in result.Errors)
-        //    {
-        //        ModelState.AddModelError(string.Empty, error.Description);
-        //    }
+                return BadRequest(new { Error = ex.Message });
 
-        //    return BadRequest(new { Error = ModelState });
-        //}
+            }
+        }
+
+
+
+        //[Authorize]//401
+        [Authorize(Roles = "Admin")]//403
+        [HttpPost("sign-up")]//User Register 
+        [Authorize(Roles = $"{RoleName.Admin}")]
+        public async Task<IActionResult> SignUp()
+        {
+            //[FromBody] SignUpRequest reques
+            //IdenetiyUser nesnesinin oluşturulur 
+            //var user = new IdentityUser
+            //{
+            //    UserName = request.UserName,
+            //    Email = request.UserName,
+            //};
+
+            ////Kullanıcının Oluşturulması
+            //var result = await _userManager.CreateAsync(user, request.Password);
+
+            //if (result.Succeeded)
+            //{
+            //    //Kullanıcı'ya token üret 
+            //    var token = _tokenService.GenerateToken(userId: user.Id, userEmail: user.Email);
+            //    Ok(new { Token = token });
+            //}
+
+            //foreach (var error in result.Errors)
+            //{
+            //    ModelState.AddModelError(string.Empty, error.Description);
+            //}
+
+            return BadRequest(new { Error = ModelState });
+        }
     }
+
 }
 /*
  1)Tüm Controllerları ve içlerindeki endpointleri içeren şekilde kod yazma,Ara bir sınıf yapılır ve bu sınıf tüm ednpointleri etkileyeceköşekilde yazılır
