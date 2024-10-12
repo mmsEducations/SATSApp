@@ -1,4 +1,5 @@
 using FluentValidation.AspNetCore;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using Ozz.Core.Extensions.Swagger;
 using SATSApp.Business.Handlers.Students;
 using SATSApp.Business.Infrustructure;
 using SATSApp.Business.Infrustructure.Constant;
+using SATSApp.Business.Queues.Consumers;
 using SATSApp.Business.Repositories.Abstract;
 using SATSApp.Business.Repositories.Concrate;
 using SATSApp.Business.Validations;
@@ -86,11 +88,35 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(RoleName.EditUser, policy => policy.RequireRole(RoleName.EditUser));
 });
 
+//MassTransit Configurasyonu 
+builder.Services.AddMassTransit(x =>
+{
+
+    x.AddConsumer<CreateStudentCommandConsumer>(); //Consumer yazýlýr 
+
+    //Rabitmq configurasyounun yapýldýðý yer
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("rabbitmq://localhost", h =>
+        {
+            h.Username("guest");
+            h.Password("guest");
+
+        });
+
+        cfg.ReceiveEndpoint("create_student_queue", e =>
+        {
+            e.ConfigureConsumer<CreateStudentCommandConsumer>(context);
+        });
+    });
+});
+
+//Mastransit host service 
+builder.Services.AddMassTransitHostedService();
+
+
 //Json Web Token Ayarlamalarý 
-
 var app = builder.Build();
-
-
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

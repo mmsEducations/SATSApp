@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using MassTransit;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Ozz.Core.ApiReponses;
 using SATSApp.Business.Command.Students;
 using SATSApp.Business.Dtos;
 using SATSApp.Business.Infrustructure.Constant;
 using SATSApp.Business.Queries.Students;
+using SATSApp.Business.Queues.EventModels;
 using SATSApp.Data.Entities;
 using SATSApp.Presentation.Common;
 
@@ -16,18 +17,19 @@ namespace SATSApp.Presentation.Controllers
 
     public class StudentController : SATSBaseController
     {
-        public StudentController(ISender mediator) : base(mediator)
+        private readonly IBus _bus;
+        public StudentController(ISender mediator, IBus bus) : base(mediator)
         {
-
+            _bus = bus;
         }
 
         [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         [HttpGet("students")]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 200)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 400)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 401)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 403)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 500)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 200)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 400)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 401)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 403)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 500)]
         public async Task<IActionResult> GetStudents()
         {
             var students = await _mediator.Send(new GetStudentsQuery());
@@ -36,11 +38,11 @@ namespace SATSApp.Presentation.Controllers
 
         [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         [HttpGet("studentsPagination")]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 200)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 400)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 401)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 403)]
-        [ProducesResponseType(typeof(Response<List<StudentDto>>), 500)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 200)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 400)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 401)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 403)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<List<StudentDto>>), 500)]
         public async Task<IActionResult> GetStudentsPagination([FromQuery] GetStudentsPaginationQuery query)
         {
             var students = await _mediator.Send(query);
@@ -50,12 +52,12 @@ namespace SATSApp.Presentation.Controllers
 
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Response<Student>), 200)]
-        [ProducesResponseType(typeof(Response<Student>), 400)]
-        [ProducesResponseType(typeof(Response<Student>), 401)]
-        [ProducesResponseType(typeof(Response<Student>), 403)]
-        [ProducesResponseType(typeof(Response<Student>), 404)]
-        [ProducesResponseType(typeof(Response<Student>), 500)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<Student>), 200)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<Student>), 400)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<Student>), 401)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<Student>), 403)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<Student>), 404)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<Student>), 500)]
         [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         public async Task<IActionResult> GetStudent([FromRoute] int id)
         {
@@ -65,12 +67,12 @@ namespace SATSApp.Presentation.Controllers
 
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(Response<bool>), 204)]
-        [ProducesResponseType(typeof(Response<bool>), 400)]
-        [ProducesResponseType(typeof(Response<bool>), 401)]
-        [ProducesResponseType(typeof(Response<bool>), 403)]
-        [ProducesResponseType(typeof(Response<bool>), 404)]
-        [ProducesResponseType(typeof(Response<bool>), 500)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<bool>), 204)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<bool>), 400)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<bool>), 401)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<bool>), 403)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<bool>), 404)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<bool>), 500)]
         [Authorize(Roles = $"{RoleName.ViewUser},{RoleName.EditUser}")]
         public async Task<IActionResult> DeleteStudent(int id)
         {
@@ -80,25 +82,33 @@ namespace SATSApp.Presentation.Controllers
 
 
         [HttpPost]
-        [ProducesResponseType(typeof(Response<int>), 201)]
-        [ProducesResponseType(typeof(Response<int>), 400)]
-        [ProducesResponseType(typeof(Response<int>), 401)]
-        [ProducesResponseType(typeof(Response<int>), 403)]
-        [ProducesResponseType(typeof(Response<int>), 500)]
-        [Authorize(Roles = $"{RoleName.EditUser}")]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 201)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 400)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 401)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 403)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 500)]
+        //[Authorize(Roles = $"{RoleName.EditUser}")]
+        [AllowAnonymous]
         public async Task<IActionResult> CreateStudent(CreateStudentCommand command)
         {
+            await _bus.Publish(new CreateStudentCommandEventModel
+            {
+                FirstName = command.FirstName,
+                LastName = command.LastName,
+                BirthDate = command.BirthDate
+            });
+
             var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(CreateStudent), id);
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(Response<int>), 200)]
-        [ProducesResponseType(typeof(Response<int>), 400)]
-        [ProducesResponseType(typeof(Response<int>), 401)]
-        [ProducesResponseType(typeof(Response<int>), 403)]
-        [ProducesResponseType(typeof(Response<int>), 404)]
-        [ProducesResponseType(typeof(Response<int>), 500)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 200)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 400)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 401)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 403)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 404)]
+        [ProducesResponseType(typeof(Ozz.Core.ApiReponses.Response<int>), 500)]
         [Authorize(Roles = $"{RoleName.EditUser}")]
         public async Task<IActionResult> UpdateStudent(UpdateStudentCommand command)
         {

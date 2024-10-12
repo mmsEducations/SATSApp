@@ -250,3 +250,56 @@ Proje Katmanlarý
 
    Not:
    Herhangi bir c# dosaysýnda appsettins.json'a eriþmek için IConfiguration kullanýlmalýdýr
+   ----------------------------------------------------------------------------------------------------------------
+
+   RabbitMQ    :  Open SOurce,Message Broker ,Mesalarý kuyruklayan bir mesajlaþma sistemidir 
+                  Uygulamalar arasýnda asenkron mesaj alýþveriþini saðlamak için kullanýlýr.
+    
+    -(Kuyruk)Mesajlar kuruklar üzerinden iletilir-alýcýlar bu kuyruða baðlanarak mesajlarý okur 
+
+    -(Asenkron)Asenkron çalýþýr :Mesajlar anýnda iþlenmek zorunda deðildir,Kuyruða alýndaýktan sonra uygun alýcýlar mesaj aldýðýnda iþlenir 
+    -(Daðýtýk sistem)Daðýtýk sistemlerde kullanýma uygundur:Sistemler arasý 
+    Advance Message Queuing Protool(AMQP) bu yapýya göre çalýþýr 
+
+   Masstransit : .Net kütüphanesidir ,uygulamalar arasý mesajlaþmayý yönetmek için kullanýlan bir mesajlaþma orkestrator'üdür 
+                Farklý mesajlaþma altyapýlarýana(RabbitMQ,Azure Servise Bus,Amazon SQS,Active MQ) kolayca entegre olup ,mesaj gönderme ve alma iþlemini basitleþtiren kütüphanedir.
+
+    -(Mesaj alýþveriþi)Mesaj alýþveriþini basitleþtirir: Mesaj gönderme ,Kuruklama yönlendirme ,alma gibi iþlemleri kolaylaþtýran bir kütüphane
+    -(Farklý mesajlaþma altyapýsý) Farklý mesajlaþma altyapýlarýný destekler :  RabbitMQ,Azure Service Bus,Active MQ gibi mesajlaþma yapýlarýyla etegre çalýþýr
+    -(Kolay Ölçeklenebilirlik) Mikroservis mimarilerinde yaygýn olarak kullanýlýr.
+    -Publisher-Consumer yapýsýný destekler
+
+    Özetle : Mesaj altyapýlarýný kullanýmýmýzý kolaylaþtýran yapý.
+
+    Neden Message queue Mekanizmasý kullanýlýr:
+
+    Ýmplementation Adýmlarý 
+    Kütüphaneler 
+    <PackageReference Include="MassTransit" Version="8.2.5" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.2.5" />
+
+
+    1)EventModel oluþturulmasý
+    2)Consumer edilmesi 
+    3)Publish edilmesi
+
+
+  1)EventModel oluþturulmasý
+       public class CreateStudentCommandEventModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public DateTime? BirthDate { get; set; }
+    }
+
+    2)Consumer edilmesi 
+        public class CreateStudentCommandConsumer : IConsumer<CreateStudentCommandEventModel>
+    {
+        public Task Consume(ConsumeContext<CreateStudentCommandEventModel> context)
+        {
+            var message = context.Message;
+            Console.WriteLine($"{DateTime.Now} tarihinde {message.FirstName + " " + message.LastName} verisi gelmiþtir");
+
+            return Task.CompletedTask;
+        }
+    }
